@@ -2,11 +2,14 @@ package b_Money;
 
 import java.util.Hashtable;
 
+import java.util.Hashtable;
+
 public class Account {
 	private Money content;
 	private String name;
 	private Hashtable<String, TimedPayment> timedPayments = new Hashtable<>();
 
+	// Constructor to initialize the Account with a name and currency
 	Account(String name, Currency currency) {
 		this.name = name;
 		this.content = new Money(0, currency);
@@ -47,7 +50,7 @@ public class Account {
 	 */
 	public void tick() {
 		for (TimedPayment tp : timedPayments.values()) {
-			tp.tick(); tp.tick();
+			tp.tick();
 		}
 	}
 
@@ -75,21 +78,26 @@ public class Account {
 		return content;
 	}
 
-    public Hashtable<String, TimedPayment> getTimedPayments() {
-        return timedPayments;
-    }
+	/**
+	 * Get a Hashtable containing all timed payments associated with the account
+	 * @return Hashtable of timed payments
+	 */
+	public Hashtable<String, TimedPayment> getTimedPayments() {
+		return timedPayments;
+	}
 
-    /* Everything below belongs to the private inner class, TimedPayment */
+	/* Everything below belongs to the private inner class, TimedPayment */
 	private class TimedPayment {
-        private final String id;
+		private final String id;
 		private int interval, next;
 		private Account fromAccount;
 		private Money amount;
 		private Bank toBank;
 		private String toAccount;
 
+		// Constructor to initialize a timed payment
 		TimedPayment(String id, Integer interval, Integer next, Money amount, Account fromAccount, Bank toBank, String toAccount) {
-            this.id = id;
+			this.id = id;
 			this.interval = interval;
 			this.next = next;
 			this.amount = amount;
@@ -98,27 +106,30 @@ public class Account {
 			this.toAccount = toAccount;
 		}
 
-		/* Return value indicates whether a transfer was initiated */
+		/**
+		 * Perform a timed payment when a time unit passes
+		 * @return True if a transfer was initiated, false otherwise
+		 */
 		public Boolean tick() {
 			if (next == 0) {
 				next = interval;
 
+				// Withdraw money from the source account
 				fromAccount.withdraw(amount);
+
 				try {
+					// Deposit money to the specified bank account
 					toBank.deposit(toAccount, amount);
-				}
-				catch (AccountDoesNotExistException e) {
-					/* Revert transfer.
-					 * In reality, this should probably cause a notification somewhere. */
+				} catch (AccountDoesNotExistException e) {
+					// Revert transfer if the receiving account does not exist
 					fromAccount.deposit(amount);
 				}
 				return true;
-			}
-			else {
+			} else {
 				next--;
 				return false;
 			}
 		}
 	}
-
 }
+

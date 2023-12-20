@@ -1,11 +1,12 @@
 package b_Money;
 
 public class Currency {
+	// Instance variables representing the name and exchange rate of the currency
 	private String name;
 	private Double rate;
 
 	/**
-	 * New Currency
+	 * Constructor to create a new Currency
 	 * The rate argument of each currency indicates that Currency's "universal" exchange rate.
 	 * Imagine that we define the rate of each currency in relation to some universal currency.
 	 * This means that the rate of each currency defines its value compared to this universal currency.
@@ -13,42 +14,42 @@ public class Currency {
 	 * @param name The name of this Currency
 	 * @param rate The exchange rate of this Currency
 	 */
-	Currency (String name, Double rate) {
+	Currency(String name, Double rate) {
 		this.name = name;
 		this.rate = rate;
 	}
 
-	/** Convert an amount of this Currency to its value in the general "universal currency"
+	/**
+	 * Convert an amount of this Currency to its value in the general "universal currency"
 	 * (As mentioned in the documentation of the Currency constructor)
 	 *
 	 * @param amount An amount of cash of this currency.
 	 * @return The value of amount in the "universal currency"
 	 */
 	public Integer universalValue(Integer amount) {
-//		String tmp = Double.toString(amount * rate);
-//		System.out.println(tmp);
-//		if(tmp.charAt(tmp.length()-3) != '.') tmp = tmp + "0";
-//		System.out.println(tmp);
-//		System.out.println(tmp.replaceAll("\\.",""));
-		return /*Integer.parseInt(tmp.replaceAll("\\.",""));*/ (int)(amount * rate);
+		return (int) (amount * rate);
 	}
 
-	/** Get the name of this Currency.
-	 * @return name of Currency
+	/**
+	 * Get the name of this Currency.
+	 *
+	 * @return Name of Currency
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/** Get the rate of this Currency.
+	/**
+	 * Get the rate of this Currency.
 	 *
-	 * @return rate of this Currency
+	 * @return Rate of this Currency
 	 */
 	public Double getRate() {
 		return rate;
 	}
 
-	/** Set the rate of this currency.
+	/**
+	 * Set the rate of this currency.
 	 *
 	 * @param rate New rate for this Currency
 	 */
@@ -56,13 +57,16 @@ public class Currency {
 		this.rate = rate;
 	}
 
-	/** Convert an amount from another Currency to an amount in this Currency
+	/**
+	 * Convert an amount from another Currency to an amount in this Currency
 	 *
-	 * @param amount Amount of the other Currency
+	 * @param amount        Amount of the other Currency
 	 * @param otherCurrency The other Currency
-	*/
+	 * @return The converted amount in this Currency
+	 */
 	public Integer valueInThisCurrency(Integer amount, Currency otherCurrency) {
-		double tmp = amount * rate;
-		return Integer.parseInt(Double.toString(amount * rate / otherCurrency.rate).replaceAll("\\.", "")) ;
+		double convertedAmount = amount * rate / otherCurrency.rate;
+		// Convert the double to an integer by removing the decimal point
+		return Integer.parseInt(Double.toString(convertedAmount).replaceAll("\\.", ""));
 	}
 }

@@ -5,9 +5,22 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+/**
+ * JUnit test class for testing the Quadrilateral class.
+ */
 public class QuadrilateralTest {
+	// Quadrilaterals for testing
 	Quadrilateral square1, square2, rectangle1, rectangle2, quad;
-	
+
+	/**
+	 * Set up quadrilaterals before each test.
+	 * @throws Exception If an exception occurs during setup.
+	 */
 	@Before
 	public void setUp() throws Exception {
 		/* Set up two squares,
@@ -19,7 +32,10 @@ public class QuadrilateralTest {
 		rectangle2 = new Quadrilateral(new Point(-2, -1), new Point(-2, 1), new Point(2, 1), new Point(2, -1));
 		quad = new Quadrilateral(new Point(-2, -2), new Point(-1, 1), new Point(1, 1), new Point(1, -1));
 	}
-	
+
+	/**
+	 * Test the isRectangle method of the Quadrilateral class.
+	 */
 	@Test
 	public void testRectangle() {
 		String msg = "Should be a rectangle";
@@ -29,7 +45,10 @@ public class QuadrilateralTest {
 		assertTrue(msg, rectangle2.isRectangle());
 		assertFalse("Should not be a rectangle", quad.isRectangle());
 	}
-	
+
+	/**
+	 * Test the isSquare method of the Quadrilateral class.
+	 */
 	@Test
 	public void testSquare() {
 		String tmsg = "Should be a square";
@@ -41,3 +60,4 @@ public class QuadrilateralTest {
 		assertFalse(fmsg, quad.isSquare());
 	}
 }
+

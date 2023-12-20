@@ -1,15 +1,22 @@
 package a_Introductory;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-
+/**
+ * JUnit test class for testing the Fibonacci class.
+ */
 public class FibonacciTest {
 
+	/**
+	 * Test the fib method of the Fibonacci class.
+	 */
 	@Test
 	public void testFib() {
+		// Create an instance of the Fibonacci class
 		Fibonacci tester = new Fibonacci();
+
+		// Test cases for the Fibonacci sequence
 		assertEquals("0", 0, tester.fib(0));
 		assertEquals("1", 1, tester.fib(1));
 		assertEquals("2", 1, tester.fib(2));
@@ -19,5 +26,4 @@ public class FibonacciTest {
 		assertEquals("6", 8, tester.fib(6));
 		assertEquals("7", 13, tester.fib(7));
 	}
-
 }
